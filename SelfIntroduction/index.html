@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天元的自我介紹</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="decoration top-left"></div>
+    <div class="decoration top-right"></div>
+    <div class="decoration bottom-left"></div>
+    <div class="decoration bottom-right"></div>
+    <div class="container">
+        <div id="uploadSection">
+            <h1>自我介紹排版</h1>
+            <div class="layout-grid">
+                <div class="background-upload">
+                    <label for="imageUpload1">上傳背景照片 (建議尺寸 1920x1080)：</label>
+                    <input type="file" id="imageUpload1" accept="image/*">
+                </div>
+                <div class="upload-area">
+                    <label for="imageUpload2">上傳照片1：</label>
+                    <input type="file" id="imageUpload2" accept="image/*">
+                </div>
+                <div class="text-area">
+                    <textarea placeholder="請輸入文字..."></textarea>
+                </div>
+                <div class="upload-area">
+                    <label for="imageUpload3">上傳照片2：</label>
+                    <input type="file" id="imageUpload3" accept="image/*">
+                </div>
+                <div class="text-area">
+                    <textarea placeholder="請輸入文字..."></textarea>
+                </div>
+                <div class="upload-area">
+                    <label for="imageUpload4">上傳照片3：</label>
+                    <input type="file" id="imageUpload4" accept="image/*">
+                </div>
+                <div class="text-area">
+                    <textarea placeholder="請輸入文字..."></textarea>
+                </div>
+            </div>
+            <button id="confirmButton">確定</button>
+        </div>
+        <div id="imageContainer"></div>
+        <button id="backButton" style="display: none;">返回</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
