@@ -12,73 +12,78 @@ document.addEventListener('DOMContentLoaded', function() {
     const backButton = document.getElementById('backButton');
     const container = document.querySelector('.container');
 
-    // 移除所有的 change 和 input 事件監聽器，因為我們不再需要檢查輸入
-    
+    function getRandomTransition() {
+        const transitions = ['fade', 'slide-left', 'slide-right', 'zoom-in', 'rotate'];
+        return transitions[Math.floor(Math.random() * transitions.length)];
+    }
+
+    function generateWarmColor() {
+        const hue = Math.floor(Math.random() * 60) + 0; // 0-60 for red to yellow
+        const saturation = Math.floor(Math.random() * 30) + 70; // 70-100%
+        const lightness = Math.floor(Math.random() * 20) + 70; // 70-90%
+        return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    }
+
     confirmButton.addEventListener('click', function() {
-        container.classList.add('slide-out');
+        const transition = getRandomTransition();
+        container.classList.add(transition);
+        
         setTimeout(() => {
-            uploadSection.style.display = 'none';
-            backButton.style.display = 'block';
             imageContainer.innerHTML = '';
-            container.classList.remove('slide-out');
-            container.classList.add('slide-in');
-            generateContent();
+            const warmColor = generateWarmColor();
+            imageContainer.style.backgroundColor = warmColor;
+
+            // 處理主要圖片（imageUpload1）
+            const mainImage = document.createElement('img');
+            mainImage.src = imageUploads[0].files[0] ? URL.createObjectURL(imageUploads[0].files[0]) : '';
+            mainImage.classList.add('main-image');
+            imageContainer.appendChild(mainImage);
+
+            // 處理其他圖片和文字
+            for (let i = 1; i <= 3; i++) {
+                const section = document.createElement('div');
+                section.classList.add('content-section');
+
+                const uploadedImage = imageUploads[i].files[0];
+                if (uploadedImage) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(uploadedImage);
+                    img.classList.add('uploaded-image');
+                    section.appendChild(img);
+                } else {
+                    // 如果沒有上傳圖片，添加一個佔位符
+                    const placeholder = document.createElement('div');
+                    placeholder.classList.add('uploaded-image');
+                    section.appendChild(placeholder);
+                }
+
+                const textArea = textAreas[i-1];
+                const p = document.createElement('p');
+                p.textContent = textArea.value.trim() || '';
+                section.appendChild(p);
+
+                imageContainer.appendChild(section);
+            }
+
+            uploadSection.style.display = 'none';
+            imageContainer.style.display = 'block';
+            backButton.style.display = 'block';
+            container.classList.remove(transition);
         }, 500);
     });
 
     backButton.addEventListener('click', function() {
-        container.classList.add('slide-out');
+        const transition = getRandomTransition();
+        container.classList.add(transition);
+        
         setTimeout(() => {
             uploadSection.style.display = 'block';
             backButton.style.display = 'none';
+            imageContainer.style.display = 'none';
             imageContainer.innerHTML = '';
-            container.classList.remove('slide-out');
-            container.classList.add('slide-in');
+            container.classList.remove(transition);
         }, 500);
     });
 
-    function generateContent() {
-        // 設置背景圖片或生成隨機背景
-        if (imageUploads[0].files.length > 0) {
-            const backgroundFile = imageUploads[0].files[0];
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imageContainer.style.backgroundImage = `url(${e.target.result})`;
-            };
-            reader.readAsDataURL(backgroundFile);
-        } else {
-            // 生成隨機背景
-            const randomColor = Math.floor(Math.random()*16777215).toString(16);
-            imageContainer.style.backgroundColor = "#" + randomColor;
-        }
-
-        const contentGrid = document.createElement('div');
-        contentGrid.className = 'content-grid';
-        imageContainer.appendChild(contentGrid);
-
-        // 生成其他內容
-        for (let i = 1; i < 4; i++) {
-            const imgWrapper = document.createElement('div');
-            imgWrapper.className = 'image-wrapper';
-
-            if (imageUploads[i].files.length > 0) {
-                const file = imageUploads[i].files[0];
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.alt = `上傳的圖片${i}`;
-                    imgWrapper.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            }
-
-            const textWrapper = document.createElement('div');
-            textWrapper.className = 'content-text';
-            textWrapper.textContent = textAreas[i-1].value || '';
-
-            contentGrid.appendChild(imgWrapper);
-            contentGrid.appendChild(textWrapper);
-        }
-    }
+    // 移除未使用的 generateContent 函數
 });
