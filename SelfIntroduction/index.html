@@ -15,14 +15,23 @@
         <div id="uploadSection">
             <h1>履歷排版</h1>
             <div class="layout-grid">
-                <div class="main-image-upload">
-                    <label for="imageUpload1">上傳主要圖片 (建議尺寸 1920x1080)：</label>
-                    <input type="file" id="imageUpload1" accept="image/*">
+                <div class="top-section">
+                    <div class="background-upload">
+                        <label for="backgroundUpload">上傳背景圖片：</label>
+                        <input type="file" id="backgroundUpload" accept="image/*">
+                        <div id="backgroundPreview" class="preview"></div>
+                    </div>
+                    <div class="profile-upload">
+                        <label for="profileUpload">上傳個人照片：</label>
+                        <input type="file" id="profileUpload" accept="image/*">
+                        <div id="profilePreview" class="preview"></div>
+                    </div>
                 </div>
                 <div class="content-row">
                     <div class="upload-area">
                         <label for="imageUpload2">上傳照片2：</label>
                         <input type="file" id="imageUpload2" accept="image/*">
+                        <div id="preview2" class="preview"></div>
                     </div>
                     <div class="text-area">
                         <textarea placeholder="請輸入文字..."></textarea>
@@ -32,6 +41,7 @@
                     <div class="upload-area">
                         <label for="imageUpload3">上傳照片3：</label>
                         <input type="file" id="imageUpload3" accept="image/*">
+                        <div id="preview3" class="preview"></div>
                     </div>
                     <div class="text-area">
                         <textarea placeholder="請輸入文字..."></textarea>
@@ -41,6 +51,7 @@
                     <div class="upload-area">
                         <label for="imageUpload4">上傳照片4：</label>
                         <input type="file" id="imageUpload4" accept="image/*">
+                        <div id="preview4" class="preview"></div>
                     </div>
                     <div class="text-area">
                         <textarea placeholder="請輸入文字..."></textarea>
